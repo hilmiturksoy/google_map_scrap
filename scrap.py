@@ -7,7 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 import time
 import random
-
+import os
+import traceback
 
 def get_business_data(kategori):
     chrome_options = Options()
@@ -18,7 +19,18 @@ def get_business_data(kategori):
     chrome_options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36")
 
-    driver = webdriver.Chrome(options=chrome_options)
+    # Mevcut dizin yolunu al
+    base_path = os.path.dirname(os.path.abspath(__file__))
+    chromedriver_path = os.path.join(base_path, "chromedriver.exe")
+
+    try:
+        # ChromeDriver'ı doğru yoldan çalıştır
+        driver = webdriver.Chrome(executable_path=chromedriver_path, options=chrome_options)
+    except Exception as e:
+        with open("log.txt", "w") as f:
+            f.write(traceback.format_exc())
+        return []
+
     driver.get("https://www.google.com/maps")
     driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 

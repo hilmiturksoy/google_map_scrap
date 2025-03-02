@@ -114,7 +114,7 @@ def close_app():
 
 # ** Tkinter GUI **
 root = tk.Tk()
-root.title("Google Map Scrap")
+root.title("Hilmi TURKSOY")
 root.geometry("1000x600")
 root.configure(bg="#f5f5f5")  # Açık gri arka plan
 
